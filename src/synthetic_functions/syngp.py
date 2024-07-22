@@ -1,6 +1,6 @@
 import torch
 import numpy as np
-from _7_utils import kern_exp_quad_noard, sample_mvn, gp_post, unif_random_sample_domain
+from .utils import kern_exp_quad_noard, sample_mvn, gp_post, unif_random_sample_domain
 
 
 class SynGP:

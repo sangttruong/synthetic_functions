@@ -5,13 +5,9 @@ Code is from: https://github.com/AxelThevenot/Python_Benchmark_Test_Optimization
 and: https://github.com/AxelThevenot/Python_Benchmark_Test_Optimization_Function_Single_Objective/blob/d4dbc7eba1b746c7624c8bc41550054e828ca821/pybenchfunction/function.py#L224
 """
 
-from collections.abc import Iterable
-
+import torch
 import numpy as np
 from matplotlib import cm
-import torch
-from matplotlib import pyplot as plt
-from torch import Tensor
 
 
 cmap = [(0, "#2f9599"), (0.45, "#eeeeee"), (1, "#8800ff")]
