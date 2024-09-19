@@ -45,13 +45,18 @@ class EnvWrapper:
             max_val = max(max_val, _max_fn_())
         return max_val
 
-    def __call__(self, *args: Any, **kwds: Any) -> Any:
-        res = self.env(*args, **kwds)
+    def __call__(self, inputs, **kwds: Any) -> Any:
+        # >>> x: batch x batch x .... x dim
+        # x in (0, 1)
+        inputs = inputs * (self.env.bounds[1] - self.env.bounds[0]) + self.env.bounds[0]
+        res = self.env(inputs, **kwds)
 
         # Normalize output
         res = (res - self.range_y[0]) / (self.range_y[1] - self.range_y[0])
+        res = res * 6 - 3 # (-3, 3): 99% Normal dist
         return res
 
     def to(self, dtype, device):
         self.env = self.env.to(dtype=dtype, device=device)
+        self.env.bounds = self.env.bounds.to(dtype=dtype, device=device)
         return self
