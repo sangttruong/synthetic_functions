@@ -64,7 +64,7 @@ class SynGP:
         test_x = self.process_function_input(test_x)
         post_mean = self.get_post_mean(test_x)
         test_y = self.process_function_output(post_mean)
-
+        test_y += self.noise_std * torch.randn_like(test_y)
         return test_y
 
     def get_post_mean(self, test_x):

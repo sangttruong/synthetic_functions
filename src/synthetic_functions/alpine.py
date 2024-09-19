@@ -85,6 +85,7 @@ class AlpineN1:
 
         # transform y from original to new scale
         y = y * self.y_scale
+        y += self.noise_std * torch.randn_like(y)
 
         return y.to(x.device, self.dtype)
 
