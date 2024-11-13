@@ -7,10 +7,9 @@ from torchvision.io import read_image
 class NightLight(torch.nn.Module):
     """Semi-synthetic NightLight function."""
 
-    def __init__(self, dim=2, seed=8, noise_std=0.0):
+    def __init__(self, dim=2, noise_std=0.0):
         self.bounds = torch.tensor([[-1, 1]] * dim).T
         self.dim = 2
-        self.seed = seed
         self.noise_std = noise_std
         self.dtype = torch.float64
         self.device = torch.device("cpu")
@@ -32,6 +31,7 @@ class NightLight(torch.nn.Module):
         )
         int_x = torch.round(x).long()
         y = self.f[int_x[..., 0], int_x[..., 1]]
+        y += self.noise_std * torch.randn_like(y)
         return y
 
     def to(self, dtype, device):
