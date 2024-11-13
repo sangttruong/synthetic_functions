@@ -9,7 +9,7 @@ class EnvWrapper:
         self.env = env
         self.bounds = env.bounds
 
-        if env_name in ["SynGP", "Alpine"]:
+        if env_name in ["SynGP", "Alpine", "NightLight"]:
             self.optimal_value = self.optimize_max()
         else:
             self.optimal_value = self.env.optimal_value
