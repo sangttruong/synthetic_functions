@@ -5,8 +5,8 @@ Code is from: https://github.com/AxelThevenot/Python_Benchmark_Test_Optimization
 and: https://github.com/AxelThevenot/Python_Benchmark_Test_Optimization_Function_Single_Objective/blob/d4dbc7eba1b746c7624c8bc41550054e828ca821/pybenchfunction/function.py#L224
 """
 
-import torch
 import numpy as np
+import torch
 from matplotlib import cm
 
 
@@ -14,7 +14,7 @@ cmap = [(0, "#2f9599"), (0.45, "#eeeeee"), (1, "#8800ff")]
 cmap = cm.colors.LinearSegmentedColormap.from_list("Custom", cmap, N=256)
 
 
-class AlpineN1:
+class AlpineN1(torch.nn.Module):
     name = "Alpine N. 1"
     latex_formula = r"f(\mathbf x) = \sum_{i=1}^{d}|x_i sin(x_i)+0.1x_i|"
     latex_formula_dimension = r"d \in \mathbb{N}_{+}^{*}"

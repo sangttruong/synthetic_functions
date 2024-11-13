@@ -1,5 +1,6 @@
-import torch
 from typing import Any
+
+import torch
 from tqdm import tqdm
 
 
@@ -7,12 +8,12 @@ class EnvWrapper:
     def __init__(self, env_name, env):
         self.env = env
         self.bounds = env.bounds
-        
+
         if env_name in ["SynGP", "Alpine"]:
             self.optimal_value = self.optimize_max()
         else:
             self.optimal_value = self.env.optimal_value
-            
+
         self.range_y = [self.optimize_min(), self.optimal_value]
         print("Y range:", self.range_y)
         print("Optimal value:", self.optimal_value)
@@ -21,8 +22,9 @@ class EnvWrapper:
         def _min_fn_():
             # Sample 10000 points and find the minimum
             inputs = torch.rand((10000, self.env.dim))
-            inputs = inputs * (self.env.bounds[1] -
-                               self.env.bounds[0]) + self.env.bounds[0]
+            inputs = (
+                inputs * (self.env.bounds[1] - self.env.bounds[0]) + self.env.bounds[0]
+            )
             res = self.env(inputs)
             return res.min().item()
 
@@ -35,8 +37,9 @@ class EnvWrapper:
         def _max_fn_():
             # Sample 10000 points and find the maximum
             inputs = torch.rand((10000, self.env.dim))
-            inputs = inputs * (self.env.bounds[1] -
-                               self.env.bounds[0]) + self.env.bounds[0]
+            inputs = (
+                inputs * (self.env.bounds[1] - self.env.bounds[0]) + self.env.bounds[0]
+            )
             res = self.env(inputs)
             return res.max().item()
 
@@ -53,7 +56,7 @@ class EnvWrapper:
 
         # Normalize output
         res = (res - self.range_y[0]) / (self.range_y[1] - self.range_y[0])
-        res = res * 6 - 3 # (-3, 3): 99% Normal dist
+        res = res * 6 - 3  # (-3, 3): 99% Normal dist
         return res
 
     def to(self, dtype, device):

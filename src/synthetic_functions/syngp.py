@@ -1,9 +1,10 @@
-import torch
 import numpy as np
-from .utils import kern_exp_quad_noard, sample_mvn, gp_post, unif_random_sample_domain
+import torch
+
+from .utils import gp_post, kern_exp_quad_noard, sample_mvn, unif_random_sample_domain
 
 
-class SynGP:
+class SynGP(torch.nn.Module):
     """Synthetic functions defined by draws from a Gaussian process."""
 
     def __init__(self, dim, seed=8, noise_std=0.0):

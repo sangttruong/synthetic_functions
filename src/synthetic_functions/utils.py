@@ -1,7 +1,8 @@
 import itertools
+
 import numpy as np
-from scipy.spatial.distance import cdist
 from scipy.linalg import solve_triangular
+from scipy.spatial.distance import cdist
 
 
 def unif_random_sample_domain(domain, n=1):
